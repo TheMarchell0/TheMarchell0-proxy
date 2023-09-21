@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "my-proxy-server",
+  "builds": [{ "src": "index.js", "use": "@vercel/node" }],
+  "routes": [
+    {
+      "src": "/proxy",
+      "dest": "index.js"
+    }
+  ],
+  "env": {
+    "PORT": "4000"
+  }
+}
