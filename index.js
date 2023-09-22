@@ -5,7 +5,7 @@ const {default: axios} = require('axios');
 const app = express();
 
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://smarttravel-opros.vercel.app/'],
+    origin: ['http://localhost:3000', 'https://smarttravel-opros.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
