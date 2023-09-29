@@ -16,10 +16,10 @@ app.use(express.urlencoded({extended: true}));
 app.post('/proxy', async (req, res) => {
     let googleScriptUrl;
     if(req.body.question && (req.headers.origin === 'http://localhost:3000')){
-        googleScriptUrl = "https://script.google.com/macros/s/AKfycbwDGDGJch0McpuMMotfZpN_gLqTo66etvf2a0TihsPoLJoOUpo87fS6CxqDhwQgis0d2A/exec";
+        googleScriptUrl = "https://script.google.com/macros/s/AKfycbwvktGwmDAM81UsagJNslEQ0HCT6jYOGx7dwDJoyfiGrTHZKHrsmRVj4U51pX2muZBQZQ/exec";
     }
     else if(req.headers.origin === 'http://localhost:3000'){
-        googleScriptUrl = "https://script.google.com/macros/s/AKfycbxlBOHZhI7jLT-MHKgihYTVjQioiey89IkCEtQAZMmXL0qz_ZVOtPehhHfjeI2Tn1o0/exec";
+        googleScriptUrl = "https://script.google.com/macros/s/AKfycbxt8OCv3jUnDV9YaPaxcjF0En-BdG3tgLTaO9jzUwryEhSgmnvKfKxeI0YmvHiAPITofw/exec";
     }
     else{
         googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyEml6rBMVdGc0g33nqaXea-UDabkhvjvhfClK87mFW7g6KbuiOWMInulRf1ikwuddJaw/exec';
