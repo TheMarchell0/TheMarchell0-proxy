@@ -13,17 +13,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyEml6rBMVdGc0g33nqaXea-UDabkhvjvhfClK87mFW7g6KbuiOWMInulRf1ikwuddJaw/exec';
+
 app.post('/proxy', async (req, res) => {
-    let googleScriptUrl;
-    if(req.body.question && (req.headers.origin === 'http://localhost:3000')){
-        googleScriptUrl = "https://script.google.com/macros/s/AKfycbwvktGwmDAM81UsagJNslEQ0HCT6jYOGx7dwDJoyfiGrTHZKHrsmRVj4U51pX2muZBQZQ/exec";
-    }
-    else if(req.headers.origin === 'http://localhost:3000'){
-        googleScriptUrl = "https://script.google.com/macros/s/AKfycbxt8OCv3jUnDV9YaPaxcjF0En-BdG3tgLTaO9jzUwryEhSgmnvKfKxeI0YmvHiAPITofw/exec";
-    }
-    else{
-        googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyEml6rBMVdGc0g33nqaXea-UDabkhvjvhfClK87mFW7g6KbuiOWMInulRf1ikwuddJaw/exec';
-    }
     try {
         const response = await axios.post(googleScriptUrl, req.body);
         res.send(response.data);
