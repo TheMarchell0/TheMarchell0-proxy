@@ -14,18 +14,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.post('/proxy', async (req, res) => {
+    let googleScriptUrl;
+    if(req.body.question && (req.headers.origin === 'http://localhost:3000')){
+        googleScriptUrl = "https://script.google.com/macros/s/AKfycbzPE8XYr0d4jnt5PHLR_K-yzlw5IfgI6Z-ovSKVeY-wxhYwqCfNr_RoZdJ3bh9t3yWq_w/exec";
+    }
+    else if(req.headers.origin === 'http://localhost:3000'){
+        googleScriptUrl = "https://script.google.com/macros/s/AKfycbxgs8ECbqUgtVAkKHrhecDACorLxN6_uLr0zS3X3efYF0RUfihjadUT8dRogBgdhjyyrw/exec";
+    }
+    else{
+        googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyEml6rBMVdGc0g33nqaXea-UDabkhvjvhfClK87mFW7g6KbuiOWMInulRf1ikwuddJaw/exec';
+    }
     try {
-        let googleScriptUrl;
-        if(req.body.type === "Заявка"){
-            googleScriptUrl = "https://script.google.com/macros/s/AKfycbyoPqNg5XfUPhO0z3tNMw7YmSfBSMF-rm-i6or2pROfjTpoEoMtOwgp6qXDj2j9prFiWg/exec";
-        }
-        else if(req.body.type === "Заявка на консультацию"){
-            googleScriptUrl = "https://script.google.com/macros/s/AKfycbyE7f1e6d7YBtXk_udscg48N09q15ZQ49_bHSsaHxqE2KJ7zTiOvEVRdzrM7yc7Vjx28A/exec";
-        }
-        else{
-            googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyEml6rBMVdGc0g33nqaXea-UDabkhvjvhfClK87mFW7g6KbuiOWMInulRf1ikwuddJaw/exec';
-        }
-
         const response = await axios.post(googleScriptUrl, req.body);
         res.send(response.data);
     } catch (error) {
@@ -33,7 +32,6 @@ app.post('/proxy', async (req, res) => {
         res.status(500).send('Error with POST request: ' + error.message);
     }
 });
-
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Proxy server listening on port ${port}`));
